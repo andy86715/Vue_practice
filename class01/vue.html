@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class01 Vue</title>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <div id="app">
+        {{ text }}
+        {{ name }}
+        {{ num }}
+        <!-- 指令 (v-) -->
+        <input type="number" v-model="num">
+
+        <hr>
+        {{ person.name }}
+        {{ person.cash }}
+        <img :src="person.image" :alt="person.name" width="100">
+        <br>
+        <i class="bi bi-gender-male" v-if="person.gender === 'male'"></i>
+        <i class="bi bi-gender-female" v-else></i>
+
+        <hr>
+        <ul>
+            <!-- for item in people -->
+            <li v-for="item in people">
+                {{ item.name }}
+                {{ item.gender }}
+                <i class="bi bi-gender-male" v-if="item.gender === 'male'"></i>
+                <i class="bi bi-gender-female" v-else></i>
+                {{ item.cash }}
+                <button type="button" @click="item.cash++">
+                    增加
+                </button>
+            </li>
+        </ul>
+        <button type="button" @click="clickAlert">
+            觸發
+        </button>
+    </div>
+
+    <script type="module">
+        import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.esm-browser.min.js'
+
+        // 把資料拉出
+        // Vue.createApp({
+        createApp({
+            // data 函式
+            data: function() {
+                return {
+                    text: 'Hello World',
+                    name: '狐狸',
+                    // 變數 num, 數值 0
+                    num: 0,
+                    person: {
+                        name: '小明',
+                        cash: 1000,
+                        image: 'https://cdn.sanity.io/images/8edntncj/production/7cb22a8a9885468d96662f6ece61ceb2bc95666d-500x300.png',
+                        gender: 'male'
+                    },
+                    people: [
+                        {
+                            name: '小明',
+                            cash: 1000,
+                            gender: 'male'
+                        },
+                        {
+                            name: '漂亮阿姨',
+                            cash: 2000,
+                            gender: 'female'
+                        },
+                    ]
+                };
+            },
+            // methods 物件
+            methods: {
+                clickAlert() {
+                    alert('我被觸發了');
+                }
+            },
+            // mounted 函式
+            mounted: function() {
+                console.log(this.text);
+                // this.clickAlert();
+                console.log(this.person.image);
+                // 修改資料範例    
+                this.text = 'Hello 狐狸'
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

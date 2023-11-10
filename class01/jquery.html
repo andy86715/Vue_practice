@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="text"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script>
+        console.log($);
+        const personText = '狐狸';
+
+        $(document).ready(function() {
+            $('#text').text(personText);
+            // $('#text') -> 取得 DOM 元素
+            // 寫入值到元素
+        })
+    </script>
+</body>
+</html>

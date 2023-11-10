@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{ addDollor(dollor) }}
+        <button type="button" @click="clickDollor">累加數值</button>
+        {{ dollor }}
+        {{ doubleNum }}
+        <br>
+        <select v-model="genderFilter">
+            <option selected value="">請選擇</option>
+            <option value="male">男生</option>
+            <option value="female">女生</option>
+        </select>
+        <li v-for="item in filterData">
+            {{ item.name }}
+            {{ item.gender }}
+        </li>
+    </div>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    text: 'huli',
+                    dollor: 1000,
+                    data: [
+                        {
+                            name: '小明',
+                            gender: 'male'
+                        },
+                        {
+                            name: '漂亮阿姨',
+                            gender: 'female'
+                        },
+                    ],
+                    genderFilter: ''
+                }
+            },
+            methods: {
+                addDollor(num) {
+                    return num+=1000
+                },
+                clickDollor() {
+                    this.dollor += 1000
+                }
+            },
+            computed: {
+                //不修改原始數值的情況下產生新值
+                doubleNum(){
+                    return this.dollor * 2;
+                },
+                // 過濾列表
+                filterData(){
+                    const newData = this.data.filter(item => {
+                        // 判斷 data 所選擇的性別
+                        return item.gender === this.genderFilter
+                    })
+                    // 預設全部
+                    if (!this.genderFilter) {
+                        return this.data;
+                    }
+                    return newData
+                }
+            },
+            mounted() {
+                // 可運行的函式
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
