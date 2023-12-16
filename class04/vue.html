@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app", v-model="text">
+        Ref: {{ person1 }}
+        <br>
+        Reactive: {{ person2 }}
+        <br>
+        {{ num }} <input type="number" v-model.number="num"> {{ doubleNum }}
+    </div>
+    <script type="module">
+        import { createApp, ref, reactive, onMounted, computed } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.8/vue.esm-browser.min.js';
+        const app = createApp({
+            setup() {
+                // Ref
+                // #1 不限制任何型別
+                // #2 一定要使用 .value 存取值
+                const person1 = ref('狐狸棒棒');
+
+                // Reactive
+                // #1 限制只能使用物件
+                // #2 覆蓋後會出現不可預期的錯誤
+                const person2 = reactive({
+                    name: '狐狸2'
+                })
+
+                // function 原本的用法
+                function getText() {
+                    console.log(person1.value);
+                }
+
+                onMounted(() => {
+                    getText()
+                })
+
+                // computed
+                // #1 定義一個純值
+                // #2 定義一個新值，是使用 computed 產生的
+                const num = ref(1);
+                const doubleNum = computed(() => {
+                    return num.value * 2
+                });
+
+                return {
+                    person1,
+                    person2,
+                    getText,
+                    num,
+                    doubleNum
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+    
+</body>
+</html>
